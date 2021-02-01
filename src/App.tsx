@@ -37,7 +37,7 @@ function App() {
     let tmp = BigInt(0)
     if (packetPositionalNmberSystem == PositionalNmberSystem.BINARY && packet) {
       try {
-        tmp = BigInt(`0b${packet}`)
+        tmp = BigInt(`0b${packet.replace(/ /g,'')}`)
       } catch {
         setPacket(packet.slice(0, -1))
       }
@@ -45,7 +45,7 @@ function App() {
 
     if (packetPositionalNmberSystem == PositionalNmberSystem.HEX && packet) {
       try {
-        tmp = BigInt(`0x${packet}`)
+        tmp = BigInt(`0x${packet.replace(/ /g,'')}`)
       } catch {
         setPacket(packet.slice(0, -1))
       }
@@ -53,13 +53,13 @@ function App() {
 
     if (packetPositionalNmberSystem == PositionalNmberSystem.OCTAL && packet) {
       try {
-        tmp = BigInt(`0o${packet}`)
+        tmp = BigInt(`0o${packet.replace(/ /g,'')}`)
       } catch {
         setPacket(packet.slice(0, -1))
       }
     }
 
-    setPacketBinary(tmp.toString(2).padStart(4 * packet.length, '0'));
+    setPacketBinary(tmp.toString(2).padStart(4 * packet.replace(/ /g,'').length, '0'));
 
   }, [packet, packetPositionalNmberSystem])
 
@@ -68,7 +68,6 @@ function App() {
     if (packetType == PacketType.TCP) {
       setSummary(TCP(packetBinary as any))
     }
-
     if (packetType == PacketType.UDP) {
       setSummary(UDP(packetBinary as any))
     }
