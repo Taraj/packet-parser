@@ -34,13 +34,15 @@ function App() {
 
 
   useEffect(() => {
-    let tmp = BigInt(0)
+    let tmp = BigInt(0);
+    let mult = 1;
     if (packetPositionalNmberSystem == PositionalNmberSystem.BINARY && packet) {
       try {
         tmp = BigInt(`0b${packet.replace(/ /g,'')}`)
       } catch {
         setPacket(packet.slice(0, -1))
       }
+      mult = 1;
     }
 
     if (packetPositionalNmberSystem == PositionalNmberSystem.HEX && packet) {
@@ -49,6 +51,7 @@ function App() {
       } catch {
         setPacket(packet.slice(0, -1))
       }
+      mult = 4;
     }
 
     if (packetPositionalNmberSystem == PositionalNmberSystem.OCTAL && packet) {
@@ -57,9 +60,10 @@ function App() {
       } catch {
         setPacket(packet.slice(0, -1))
       }
+      mult = 3;
     }
 
-    setPacketBinary(tmp.toString(2).padStart(4 * packet.replace(/ /g,'').length, '0'));
+    setPacketBinary(tmp.toString(2).padStart(mult * packet.replace(/ /g,'').length, '0'));
 
   }, [packet, packetPositionalNmberSystem])
 
