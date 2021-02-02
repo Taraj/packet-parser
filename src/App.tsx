@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ICMP } from './headers/ICMP';
 import { IPv4 } from './headers/IPv4';
 import { TCP } from './headers/TCP';
 import { UDP } from './headers/UDP';
@@ -6,7 +7,8 @@ import { UDP } from './headers/UDP';
 enum PacketType {
   TCP = 'TCP',
   UDP = 'UDP',
-  IPv4 = 'IPv4'
+  IPv4 = 'IPv4',
+  ICMP = 'ICMP'
 }
 
 enum PositionalNmberSystem {
@@ -77,6 +79,9 @@ function App() {
     }
     if (packetType === PacketType.IPv4) {
       setSummary(IPv4(packetBinary as any))
+    }
+    if (packetType === PacketType.ICMP) {
+      setSummary(ICMP(packetBinary as any))
     }
 
   }, [packetBinary, packetType])
