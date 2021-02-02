@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     let tmp = BigInt(0);
     let mult = 1;
-    if (packetPositionalNmberSystem == PositionalNmberSystem.BINARY && packet) {
+    if (packetPositionalNmberSystem === PositionalNmberSystem.BINARY && packet) {
       try {
         tmp = BigInt(`0b${packet.replace(/ /g,'')}`)
       } catch {
@@ -45,7 +45,7 @@ function App() {
       mult = 1;
     }
 
-    if (packetPositionalNmberSystem == PositionalNmberSystem.HEX && packet) {
+    if (packetPositionalNmberSystem === PositionalNmberSystem.HEX && packet) {
       try {
         tmp = BigInt(`0x${packet.replace(/ /g,'')}`)
       } catch {
@@ -54,7 +54,7 @@ function App() {
       mult = 4;
     }
 
-    if (packetPositionalNmberSystem == PositionalNmberSystem.OCTAL && packet) {
+    if (packetPositionalNmberSystem === PositionalNmberSystem.OCTAL && packet) {
       try {
         tmp = BigInt(`0o${packet.replace(/ /g,'')}`)
       } catch {
@@ -69,13 +69,13 @@ function App() {
 
 
   useEffect(() => {
-    if (packetType == PacketType.TCP) {
+    if (packetType === PacketType.TCP) {
       setSummary(TCP(packetBinary as any))
     }
-    if (packetType == PacketType.UDP) {
+    if (packetType === PacketType.UDP) {
       setSummary(UDP(packetBinary as any))
     }
-    if (packetType == PacketType.IPv4) {
+    if (packetType === PacketType.IPv4) {
       setSummary(IPv4(packetBinary as any))
     }
 
